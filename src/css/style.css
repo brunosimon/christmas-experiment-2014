@@ -1,0 +1,55 @@
+html,body {margin:0;padding:0;background:#000;-webkit-font-smoothing:antialiased;font-family:'Luckiest Guy',cursive;;font-size:12px;}
+* {box-sizing:border-box;}
+
+/* CANVAS */
+canvas {display:block;position:absolute;top:0;left:0;}
+canvas.physics-canvas {top:46px;background:rgba(34,34,34,0.2) !important;}
+canvas.physics-canvas.hidden {display:none;}
+canvas.level-canvas {top:46px;background:rgba(34,34,34,0.2) !important;}
+canvas.level-canvas.hidden {display:none;}
+
+/* UI */
+.ui {position:fixed;}
+
+.ui h1 {position:fixed;top:50%;left:50%;width:400px;margin:-280px 0 0 -200px;text-align:center;color:#fff;text-shadow: 0 3px 0 #C9C9C9;font-size:60px;letter-spacing:2px;}
+
+.ui .tweaks,
+.ui .credits-trigger,
+.ui .credits,
+.ui .close,
+.ui .play,
+.ui .replay,
+.ui .instruction,
+.ui .scores {background:#1E2734;color:#fff;border:4px solid #fff;box-shadow:0px 5px #C9C9C9;}
+.ui .button {cursor:pointer;}
+.ui .button:hover {box-shadow:0px 3px #C9C9C9;-webkit-transform:translateY(2px);-moz-transform:translateY(2px);-o-transform:translateY(2px);transform:translateY(2px);}
+
+.ui .instructions {position:fixed;left:50%;top:50%;width:700px;margin:-120px 0 0 -310px;text-align:center;}
+.ui .instruction {width:180px;height:180px;margin:10px;float:left;}
+.ui .instruction .num {display:block;padding:30px 0 12px 0;font-size:60px;}
+.ui .instruction .num:after {content:'.';}
+.ui .instruction .illustration {display:inline-block;}
+.ui .instruction .text {display:block;margin:0 20px;line-height:1.2em;}
+
+.ui .play {position:fixed;top:50%;left:50%;width:140px;margin:140px 0 0 -70px;text-align:center;font-size:36px;padding:17px 10px 8px 10px;}
+
+.ui .tweaks {position:fixed;top:20px;right:20px;}
+.ui .tweaks > div {margin:10px;cursor:pointer;}
+.ui .tweaks .box {display:inline-block;position:relative;width:24px;height:24px;background:#1E2734;border:4px solid #fff;box-shadow:0px 3px #C9C9C9;}
+.ui .tweaks > div:hover .box {box-shadow:0px 1px #C9C9C9;-webkit-transform:translateY(2px);-moz-transform:translateY(2px);-o-transform:translateY(2px);transform:translateY(2px);}
+.ui .tweaks .active .box:after {content:'';display:block;position:absolute;top:4px;right:4px;bottom:4px;left:4px;background:#fff;}
+.ui .tweaks .label {display:inline-block;position:relative;top:-8px;padding:0 10px 0 10px;}
+
+.ui .replay {display:none;position:fixed;bottom:20px;right:110px;padding:12px 10px 10px 10px;cursor:pointer;}
+
+.ui .credits {display:none;position:fixed;top:50%;left:50%;width:400px;margin:-100px 0 0 -200px;padding:27px 30px 8px 30px;text-align:center;font-size:30px;}
+.ui .credits > div {margin:10px;}
+.ui .credits-trigger {position:fixed;bottom:20px;right:20px;padding:12px 10px 10px 10px;cursor:pointer;}
+.ui .credits .close {position:absolute;top:-26px;right:-26px;width:46px;height:44px;padding:7px 0 0 2px;text-align:center;font-size:30px;}
+
+.ui .scores {display:none;position:fixed;top:50%;left:50%;width:400px;margin:-100px 0 0 -200px;padding:27px 30px 8px 30px;text-align:center;font-size:30px;}
+.ui .scores .value {display:inline-block;}
+.ui .scores .elves,
+.ui .scores .time {text-align:left;padding-bottom:10px;}
+.ui .scores .comment {padding:30px 0;}
+
