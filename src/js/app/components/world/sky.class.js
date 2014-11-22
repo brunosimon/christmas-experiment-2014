@@ -47,6 +47,38 @@
             this.sky = new THREE.Mesh( this.sky_geometry, this.sky_material );
 
             this.scene.add( this.sky );
+
+            // Init Debug
+            this.init_debug();
+        },
+
+        /**
+         * INIT DEBUG
+         */
+        init_debug: function()
+        {
+            var that = this;
+
+            this.debug = {};
+            this.debug.instance = new APP.COMPONENTS.Debug();
+
+            this.debug.top_color    = this.debug.instance.gui.sky.addColor( this.options, 'top_color' ).name( 'top color' );
+            this.debug.bottom_color = this.debug.instance.gui.sky.addColor( this.options, 'bottom_color' ).name( 'bottom color' );
+            this.debug.offset       = this.debug.instance.gui.sky.add( this.uniforms.offset, 'value', -20000, 20000 ).step( 10 ).name( 'offset' );
+            this.debug.multiplier   = this.debug.instance.gui.sky.add( this.uniforms.multiplier, 'value', 0, 40000 ).step( 10 ).name( 'multiplier' );
+            this.debug.min_clamp    = this.debug.instance.gui.sky.add( this.uniforms.minClamp, 'value', -2, 2 ).step( 0.1 ).name( 'min clamp' );
+            this.debug.max_clamp    = this.debug.instance.gui.sky.add( this.uniforms.maxClamp, 'value', -2, 2 ).step( 0.1 ).name( 'max clamp' );
+
+
+            this.debug.top_color.onChange( function( value )
+            {
+                that.uniforms.topColor.value = new THREE.Color( value );
+            } );
+
+            this.debug.bottom_color.onChange( function( value )
+            {
+                that.uniforms.bottomColor.value = new THREE.Color( value );
+            } );
         }
     });
 })();

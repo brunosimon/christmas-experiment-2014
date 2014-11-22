@@ -78,6 +78,12 @@
             this.bounds     = [];
             this.end_bounds = null;
 
+            // Init Debug (need a frame)
+            window.requestAnimationFrame(function()
+            {
+                that.init_debug();
+            });
+
             // Tick event
             Matter.Events.on( this.engine, 'tick', function(e)
             {
@@ -87,6 +93,40 @@
 
             // Run
             Matter.Engine.run( this.engine );
+        },
+
+        /**
+         * INIT DEBUG
+         */
+        init_debug: function()
+        {
+            var that = this;
+
+            this.debug = {};
+            this.debug.instance = new APP.COMPONENTS.Debug();
+
+            this.debug.physics_debug  = this.debug.instance.gui.physics.add( this.options, 'debug' ).name( 'debug' );
+            this.debug.santa_force    = this.debug.instance.gui.physics.add( this.options.forces, 'santa', 0, 0.05 ).step( 0.0001 ).name( 'santa force' );
+            this.debug.elves_force    = this.debug.instance.gui.physics.add( this.options.forces, 'elves', 0, 0.005 ).step( 0.00001 ).name( 'elves force' );
+            this.debug.santa_friction = this.debug.instance.gui.physics.add( this.santa_composite.bodies[ 0 ], 'frictionAir', 0, 0.5 ).step( 0.001 ).name( 'santa friction' );
+            this.debug.elves_friction = this.debug.instance.gui.physics.add( this.elves_composite.bodies[ 0 ], 'frictionAir', 0, 0.5 ).step( 0.001 ).name( 'elves friction' );
+
+            this.debug.physics_debug.onChange( function( value )
+            {
+                if( value )
+                    that.engine.render.canvas.classList.remove('hidden');
+                else
+                    that.engine.render.canvas.classList.add('hidden');
+            } );
+
+            this.debug.elves_friction.onChange( function( value )
+            {
+                for( var i = 0; i < that.elves_composite.bodies.length; i++ )
+                {
+                    var elf = that.elves_composite.bodies[ i ];
+                    elf.frictionAir = value;
+                }
+            } );
         },
 
         /**

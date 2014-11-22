@@ -8,7 +8,7 @@
         {
             rooms :
             {
-                count : 8,
+                count : 16,
                 size  : 2.5,
                 types : [
                     'room',
@@ -16,7 +16,13 @@
                     'mill',
                     'mills',
                     'explosives'
-                ]
+                ],
+                colors :
+                {
+                    default : 0xF0771A,
+                    start   : 0xFFAC44,
+                    end     : 0xc7eb51,
+                }
             },
             debug :
             {
@@ -58,10 +64,75 @@
             this.object = new THREE.Object3D();
             this.scene.add( this.object );
 
+            // Init Debug
+            this.init_debug();
+
             // Ticker
             this.ticker.on( 'tick' , function()
             {
                 that.frame();
+            } );
+        },
+
+        /**
+         * INIT DEBUG
+         */
+        init_debug: function()
+        {
+            var that = this;
+
+            this.debug = {};
+            this.debug.instance = new APP.COMPONENTS.Debug();
+
+            this.debug.lvl_debug           = this.debug.instance.gui.level.add( this.options.debug, 'available' ).name( 'debug' );
+            this.debug.rooms_count         = this.debug.instance.gui.level.add( this.options.rooms, 'count', 1, 20 ).step( 1 ).name( 'rooms count' );
+            this.debug.init_level          = this.debug.instance.gui.level.add( this, 'init_new_level' ).name( 'new level' );
+            this.debug.rooms_color_default = this.debug.instance.gui.level.addColor( this.options.rooms.colors, 'default' ).name( 'room color default' );
+            this.debug.rooms_color_end     = this.debug.instance.gui.level.addColor( this.options.rooms.colors, 'end' ).name( 'room color end' );
+            this.debug.rooms_color_start   = this.debug.instance.gui.level.addColor( this.options.rooms.colors, 'start' ).name( 'room color start' );
+
+            function update_rooms_colors()
+            {
+                var room = null,
+                    mesh = null;
+
+                // Each room
+                for( var i = 0, len = that.rooms.length; i < len; i++ )
+                {
+                    room = that.rooms[ i ];
+                    mesh = room.object.children[ 0 ];
+
+                    if( room instanceof APP.COMPONENTS.WORLD.ROOMS.Start)
+                        mesh.material.color = new THREE.Color( that.options.rooms.colors.start );
+                    else if( room instanceof APP.COMPONENTS.WORLD.ROOMS.End)
+                        mesh.material.color = new THREE.Color( that.options.rooms.colors.end );
+                    else
+                        mesh.material.color = new THREE.Color( that.options.rooms.colors.default );
+                }
+            }
+
+            // Events
+            this.debug.lvl_debug.onChange( function( value )
+            {
+                if( value )
+                    that.canvas.classList.remove( 'hidden' );
+                else
+                    that.canvas.classList.add( 'hidden' );
+            } );
+
+            this.debug.rooms_color_default.onChange( function( value )
+            {
+                update_rooms_colors();
+            } );
+
+            this.debug.rooms_color_end.onChange( function( value )
+            {
+                update_rooms_colors();
+            } );
+
+            this.debug.rooms_color_start.onChange( function( value )
+            {
+                update_rooms_colors();
             } );
         },
 
@@ -284,13 +355,15 @@
          */
         add_room: function( coordinates, type )
         {
-            var room = new APP.COMPONENTS.WORLD.ROOMS[ type.capitalize() ]( {
-                scene  : this.scene,
-                x      : coordinates.x * this.options.rooms.size,
-                y      : coordinates.y * this.options.rooms.size,
-                width  : this.options.rooms.size,
-                height : this.options.rooms.size
-            } );
+            var color = this.options.rooms.colors[ type ] || this.options.rooms.colors.default,
+                room  = new APP.COMPONENTS.WORLD.ROOMS[ type.capitalize() ]( {
+                    scene  : this.scene,
+                    x      : coordinates.x * this.options.rooms.size,
+                    y      : coordinates.y * this.options.rooms.size,
+                    width  : this.options.rooms.size,
+                    height : this.options.rooms.size,
+                    color  : color
+                } );
             room.start();
 
             this.rooms.push(room);

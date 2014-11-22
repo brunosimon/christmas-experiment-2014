@@ -229,8 +229,8 @@
             this.wind.x += (this.wind.target.x - this.wind.x) * 0.01;
             this.wind.z += (this.wind.target.z - this.wind.z) * 0.01;
 
-            this.level.snow.wind.x = this.wind.x * 0.005;
-            this.level.snow.wind.z = this.wind.z * 0.005;
+            // this.level.snow.wind.x = this.wind.x * 0.005;
+            // this.level.snow.wind.z = this.wind.z * 0.005;
 
             this.physics.wind.x = this.wind.x * 0.0002;
             this.physics.wind.y = this.wind.z * 0.0002;
@@ -274,6 +274,32 @@
             this.center.y += (average_position.y - this.center.y) * this.options.camera.ease;
             this.center.z += (average_position.z - this.center.z) * this.options.camera.ease;
             this.camera.lookAt( this.center );
+        },
+
+        /**
+         * SET QUALITY
+         */
+        set_quality: function( quality )
+        {
+            // Quality
+            if( quality === 'high' )
+            {
+                // Lights
+                this.lights.set_multiplicator( 1 );
+
+                // Shaders
+                this.renderer.options.shaders = true;
+            }
+
+            // Low
+            else
+            {
+                // Lights
+                this.lights.set_multiplicator( 1.8 );
+
+                // Shaders
+                this.renderer.options.shaders = false;
+            }
         },
 
         /**

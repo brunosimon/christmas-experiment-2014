@@ -11,10 +11,7 @@
             width  : 2.5,
             height : 2.5,
             scale  : 1,
-            floor  :
-            {
-                color : 0xF0771A
-            }
+            color  : 0xF0771A
         },
 
         /**
@@ -42,7 +39,7 @@
             this.object.scale.set( this.options.scale, this.options.scale, this.options.scale );
             this.scene.add( this.object );
 
-            this.three_helper.create_box( this.options.x, -0.1, this.options.y, this.options.width, 0.2, this.options.height, this.options.floor.color, this.object );
+            this.three_helper.create_box( this.options.x, -0.1, this.options.y, this.options.width, 0.2, this.options.height, this.options.color, this.object );
 
             // Bounds
             var size   = this.options.width * this.physics.options.scale,

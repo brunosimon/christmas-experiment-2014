@@ -24,6 +24,7 @@
             this.ticker   = new APP.TOOLS.Ticker();
             this.debug    = new APP.COMPONENTS.Debug();
             this.world    = new APP.COMPONENTS.WORLD.World();
+            this.sounds   = new APP.COMPONENTS.Sounds();
             this.ui       = new APP.COMPONENTS.UI();
             this.stats        = {
                 elves :
@@ -58,12 +59,44 @@
             this.browser.start();
             this.world.start();
             this.debug.start();
+            this.sounds.start();
             this.ui.start();
+            this.ui.set_state( 'intro' );
 
             this.ticker.on( 'tick', function()
             {
                 that.frame();
             });
+
+            this.ui.on( 'play', function()
+            {
+                that.restart();
+            } );
+
+            this.ui.on( 'replay', function()
+            {
+                that.restart();
+            } );
+
+            this.ui.on( 'quality', function( value )
+            {
+                that.world.set_quality( value );
+            } );
+
+            // Init Debug
+            this.init_debug();
+        },
+
+        /**
+         * INIT DEBUG
+         */
+        init_debug: function()
+        {
+            var that  = this,
+                debug = {};
+
+            debug.instance = new APP.COMPONENTS.Debug();
+            debug.restart  = this.debug.instance.gui.game.add( app, 'restart' ).name( 'restart' );
         },
 
         /**
@@ -94,6 +127,10 @@
 
             this.stats.time.spent = + ( new Date() ) - this.stats.time.start;
             this.stats.time.spent_formated = this.get_formated_time(this.stats.time.spent);
+
+            // UI
+            this.ui.$.live.time.innerHTML  = this.stats.time.spent_formated;
+            this.ui.$.live.elves.innerHTML = this.stats.elves.alive + '/' + this.world.options.elves.count;
 
             // Arrived (santa arrived AND all elves arrived OR dead)
             if( this.world.santa.arrived && this.stats.elves.left <= 0 && !this.stats.game.over )
@@ -132,6 +169,9 @@
             this.stats.time.spent          = 0;
             this.stats.time.spent_formated = '0s';
 
+            // Ui
+            this.ui.set_state( 'playing' );
+
             this.world.restart();
         },
 
@@ -142,16 +182,15 @@
         {
             var that = this;
 
+            // Stats
             this.stats.game.over  = true;
             this.stats.game.state = 'win';
 
-            // Delay before restart
+            // UI
             window.setTimeout( function()
             {
-                that.restart();
+                that.ui.set_state( 'loose' );
             }, 2000);
-
-            console.log('loose');
         },
 
         /**
@@ -161,17 +200,16 @@
         {
             var that = this;
 
+            // Stats
             this.stats.game.over  = true;
             this.stats.game.state = 'win';
 
-            // Delay before restart
-            window.setTimeout( function()
-            {
-                that.restart();
-            }, 2000);
+            // UI
+            this.ui.$.scores.time.innerHTML  = this.stats.time.spent_formated;
+            this.ui.$.scores.elves.innerHTML = this.stats.elves.arrived + '/' + this.world.options.elves.count;
 
-            console.log( 'arrived : ' + this.stats.elves.arrived );
-            console.log( 'time : ' + this.stats.time.spent_formated );
+            this.ui.set_state( 'win' );
+            this.ui.set_comment( this.stats.time.spent / ( this.world.level.options.rooms.count - 2 ), this.stats.elves.arrived / this.world.options.elves.count );
         }
     });
 })();

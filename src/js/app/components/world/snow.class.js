@@ -66,11 +66,34 @@
 
             this.create_particles();
 
+            // Init Debug
+            this.init_debug();
+
             // Ticker
             this.ticker.on( 'tick' , function()
             {
                 that.frame();
             } );
+        },
+
+        /**
+         * INIT DEBUG
+         */
+        init_debug: function()
+        {
+            this.debug = {};
+
+            this.debug.instance = new APP.COMPONENTS.Debug();
+
+            this.debug.gravity          = this.debug.instance.gui.snow.add( this, 'gravity', -0.01, 0.01 ).step( 0.0001 ).name( 'gravity' );
+            this.debug.wind_x           = this.debug.instance.gui.snow.add( this.wind, 'x', -0.01, 0.01 ).step( 0.0001 ).name( 'wind x' );
+            this.debug.wind_y           = this.debug.instance.gui.snow.add( this.wind, 'y', -0.01, 0.01 ).step( 0.0001 ).name( 'wind y' );
+            this.debug.wind_z           = this.debug.instance.gui.snow.add( this.wind, 'z', -0.01, 0.01 ).step( 0.0001 ).name( 'wind z' );
+            this.debug.perlin_intensity = this.debug.instance.gui.snow.add( this.uniforms.perlinIntensity, 'value', -10, 10 ).step( 0.1 ).name( 'perlin int.' );
+            this.debug.perlin_frequency = this.debug.instance.gui.snow.add( this.uniforms.perlinFrequency, 'value', -1, 1 ).step( 0.01 ).name( 'perlin freq.' );
+            this.debug.time_scale       = this.debug.instance.gui.snow.add( this.uniforms.timeScale, 'value', 0, 0.001 ).step( 0.00001 ).name( 'time scale' );
+            this.debug.fade_distance    = this.debug.instance.gui.snow.add( this.uniforms.fadeDistance, 'value', 0, 3 ).step( 0.1 ).name( 'fade distance' );
+            this.debug.particle_scale   = this.debug.instance.gui.snow.add( this.uniforms.particleScale, 'value', 1, 20 ).step( 0.1 ).name( 'particle scale' );
         },
 
         /**
@@ -117,9 +140,6 @@
             this.uniforms.offset.value.y += this.wind.y * this.ticker.delta;
             this.uniforms.offset.value.z += this.wind.z * this.ticker.delta;
 
-            // console.log(this.wind.y);
-            // console.log(this.gravity);
-
             this.uniforms.offset.value.y += this.gravity * this.ticker.delta;
         },
 
@@ -128,7 +148,19 @@
          */
         destroy: function()
         {
+            // Scene
             this.scene.remove( this.point_cloud );
+
+            // Debug
+            this.debug.gravity.remove();
+            this.debug.wind_x.remove();
+            this.debug.wind_y.remove();
+            this.debug.wind_z.remove();
+            this.debug.perlin_intensity.remove();
+            this.debug.perlin_frequency.remove();
+            this.debug.time_scale.remove();
+            this.debug.fade_distance.remove();
+            this.debug.particle_scale.remove();
         }
     });
 })();

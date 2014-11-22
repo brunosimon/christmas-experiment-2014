@@ -1,5 +1,7 @@
 html,body {margin:0;padding:0;background:#000;-webkit-font-smoothing:antialiased;font-family:'Luckiest Guy',cursive;;font-size:12px;}
 * {box-sizing:border-box;}
+.dg * {box-sizing:content-box;}
+a {color:inherit;}
 
 /* CANVAS */
 canvas {display:block;position:absolute;top:0;left:0;}
@@ -7,6 +9,7 @@ canvas.physics-canvas {top:46px;background:rgba(34,34,34,0.2) !important;}
 canvas.physics-canvas.hidden {display:none;}
 canvas.level-canvas {top:46px;background:rgba(34,34,34,0.2) !important;}
 canvas.level-canvas.hidden {display:none;}
+canvas#three-canvas {-webkit-transition:-webkit-filter 0.3s;}
 
 /* UI */
 .ui {position:fixed;}
@@ -16,13 +19,18 @@ canvas.level-canvas.hidden {display:none;}
 .ui .tweaks,
 .ui .credits-trigger,
 .ui .credits,
+.ui .loose,
 .ui .close,
 .ui .play,
 .ui .replay,
 .ui .instruction,
-.ui .scores {background:#1E2734;color:#fff;border:4px solid #fff;box-shadow:0px 5px #C9C9C9;}
+.ui .scores,
+.ui .time-live,
+.ui .elves-live {background:#1E2734;color:#fff;border:4px solid #fff;box-shadow:0px 5px #C9C9C9;opacity:1;}
 .ui .button {cursor:pointer;}
 .ui .button:hover {box-shadow:0px 3px #C9C9C9;-webkit-transform:translateY(2px);-moz-transform:translateY(2px);-o-transform:translateY(2px);transform:translateY(2px);}
+
+.ui .animated {-webkit-transition:opacity 0.3s;-moz-transition:opacity 0.3s;-o-transition:opacity 0.3s;transition:opacity 0.3s;}
 
 .ui .instructions {position:fixed;left:50%;top:50%;width:700px;margin:-120px 0 0 -310px;text-align:center;}
 .ui .instruction {width:180px;height:180px;margin:10px;float:left;}
@@ -42,14 +50,20 @@ canvas.level-canvas.hidden {display:none;}
 
 .ui .replay {display:none;position:fixed;bottom:20px;right:110px;padding:12px 10px 10px 10px;cursor:pointer;}
 
-.ui .credits {display:none;position:fixed;top:50%;left:50%;width:400px;margin:-100px 0 0 -200px;padding:27px 30px 8px 30px;text-align:center;font-size:30px;}
-.ui .credits > div {margin:10px;}
+.ui .credits {display:none;position:fixed;top:50%;left:50%;width:600px;margin:-140px 0 0 -300px;padding:27px 30px 8px 30px;text-align:center;font-size:16px;line-height:1.4em;}
+.ui .credits > div {margin:10px 10px 20px 10px;}
 .ui .credits-trigger {position:fixed;bottom:20px;right:20px;padding:12px 10px 10px 10px;cursor:pointer;}
-.ui .credits .close {position:absolute;top:-26px;right:-26px;width:46px;height:44px;padding:7px 0 0 2px;text-align:center;font-size:30px;}
+.ui .credits .close {position:absolute;top:-26px;right:-26px;width:46px;height:44px;padding:22px 0 0 2px;text-align:center;font-size:30px;line-height:0;}
 
-.ui .scores {display:none;position:fixed;top:50%;left:50%;width:400px;margin:-100px 0 0 -200px;padding:27px 30px 8px 30px;text-align:center;font-size:30px;}
-.ui .scores .value {display:inline-block;}
+.ui .scores {display:none;position:fixed;top:50%;left:50%;width:400px;margin:-130px 0 0 -200px;padding:27px 30px 8px 30px;text-align:center;font-size:30px;}
+.ui .scores .value {display:inline-block;float:right;}
 .ui .scores .elves,
 .ui .scores .time {text-align:left;padding-bottom:10px;}
 .ui .scores .comment {padding:30px 0;}
+.ui .scores .comment.animated {-webkit-transition:all 0.4s 0.5s ease-in;-moz-transition:all 0.4s 0.5s ease-in;-o-transition:all 0.4s 0.5s ease-in;transition:all 0.4s 0.5s ease-in;opacity:1;}
+.ui .scores .comment.big {-webkit-transform:scale(4) rotate(10deg);-moz-transform:scale(4) rotate(10deg);-o-transform:scale(4) rotate(10deg);transform:scale(4) rotate(10deg);opacity:0;}
 
+.ui .loose {display:none;position:fixed;top:50%;left:50%;width:400px;margin:-40px 0 0 -200px;padding:27px 30px 17px 30px;text-align:center;font-size:30px;}
+
+.ui .time-live  {display:none;position:fixed;top:20px;left:50%;width:80px;margin:0 0 0 -93px;padding:12px 10px 8px 10px;text-align:center;font-size:16px;}
+.ui .elves-live {display:none;position:fixed;top:20px;left:50%;width:80px;margin:0 0 0 13px;padding:12px 10px 8px 10px;text-align:center;font-size:16px;}

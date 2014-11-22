@@ -12,10 +12,7 @@
             width  : 2.5,
             height : 2.5,
             scale  : 1,
-            floor  :
-            {
-                color : 0xF0771A
-            }
+            color  : 0xF0771A
         },
 
         /**

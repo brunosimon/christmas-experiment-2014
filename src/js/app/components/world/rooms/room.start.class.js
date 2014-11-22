@@ -11,10 +11,7 @@
             width  : 2.5,
             height : 2.5,
             scale  : 1,
-            floor  :
-            {
-                color : 0xFFAC44
-            }
+            color  : 0xFFAC44
         }
     });
 })();

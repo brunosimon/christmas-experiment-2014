@@ -126,10 +126,53 @@
             this.blend_pass.renderToScreen = true;
             this.composer_final.addPass( this.blend_pass );
 
+            // Init Debug
+            this.init_debug();
+
             // Ticker
             this.ticker.on( 'tick' , function()
             {
                 that.frame();
+            } );
+        },
+
+        /**
+         * INIT DEBUG
+         */
+        init_debug: function()
+        {
+            var that = this;
+
+            this.debug = {};
+            this.debug.instance = new APP.COMPONENTS.Debug();
+
+            this.debug.brightness          = this.debug.instance.gui.render.add( this.brightness_contrast_pass.uniforms.brightness, 'value', -1, 1 ).step( 0.01 ).name( 'brightness' );
+            this.debug.contrast            = this.debug.instance.gui.render.add( this.brightness_contrast_pass.uniforms.contrast, 'value' ,-1 ,1 ).step( 0.01 ).name( 'contrast' );
+            this.debug.shaders             = this.debug.instance.gui.render.add( this.options,'shaders').name( 'shaders' );
+            this.debug.blur_strength       = this.debug.instance.gui.render.add( this.bloom_pass.copyUniforms.opacity, 'value', 0, 2 ).step( 0.01 ).name( 'blur strength' );
+            this.debug.blur_amount         = this.debug.instance.gui.render.add( this.options, 'blur_amount', 0, 0.01 ).step( 0.0001 ).name( 'blur amount' );
+            this.debug.tilt_shift_position = this.debug.instance.gui.render.add( this.options, 'tilt_shift_position', 0, 1 ).step( 0.01 ).name( 'tilt position' );
+            this.debug.tilt_shift_strength = this.debug.instance.gui.render.add( this.options, 'tilt_shift_strength', 0, 10 ).step( 0.1 ).name( 'tilt strength' );
+            this.debug.color_r             = this.debug.instance.gui.render.add( this.color_corection_pass.uniforms.mulRGB.value, 'x', 0, 2 ).step( 0.1 ).name( 'color R' );
+            this.debug.color_g             = this.debug.instance.gui.render.add( this.color_corection_pass.uniforms.mulRGB.value, 'y', 0, 2 ).step( 0.1 ).name( 'color G' );
+            this.debug.color_b             = this.debug.instance.gui.render.add( this.color_corection_pass.uniforms.mulRGB.value, 'z', 0, 2 ).step( 0.1 ).name( 'color B' );
+
+            this.debug.blur_amount.onChange( function( value )
+            {
+                THREE.BloomPass.blurX.x = value;
+                THREE.BloomPass.blurY.y = value;
+            } );
+
+            this.debug.tilt_shift_position.onChange( function( value )
+            {
+                that.horizontal_tilt_pass.uniforms.r.value = value;
+                that.vertical_tilt_pass.uniforms.r.value   = value;
+            } );
+
+            this.debug.tilt_shift_strength.onChange( function( value )
+            {
+                that.horizontal_tilt_pass.uniforms.h.value = 4 / ( that.browser.width ) * value;
+                that.vertical_tilt_pass.uniforms.v.value   = 4 / ( that.browser.height ) * value;
             } );
         },
 

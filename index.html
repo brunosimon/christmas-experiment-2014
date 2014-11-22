@@ -18,6 +18,9 @@
 
         <h1>Santa Workout</h1>
 
+        <div class="time-live">00:00</div>
+        <div class="elves-live">24/30</div>
+
         <div class="instructions">
 
             <div class="instruction">
@@ -43,15 +46,13 @@
             <div class="results">
                 <div class="time">
                     <!-- <div class="illustration"><img src="#" alt=""></div> -->
-                    Time : <div class="value">00:31</div>
+                    Time <div class="value">00:31</div>
                 </div>
                 <div class="elves">
                     <!-- <div class="illustration"><img src="#" alt=""></div> -->
-                    Elves saved : <div class="value">12/30</div>
+                    Elves saved <div class="value">12/30</div>
                 </div>
-                <div class="comment">
-                    "Not bad"
-                </div>
+                <div class="comment animated"></div>
             </div>
             <div class="share">
                 <a href="#" class="twitter"></a>
@@ -63,8 +64,14 @@
 
         <div class="credits-trigger button">Credits</div>
         <div class="credits">
-            <div>Game for ...</div>
-            <div>Thanks to ...</div>
+            <div>
+                This game has been made for the 2014 Christmas Experiment
+                <br />Thanks to Shane B. (Rush Coil) for <a href="http://rushcoil.bandcamp.com/album/8-bit-christmas" target="_blank">the Music</a>
+                <br />Thanks to David Ronai who proposed me to participate
+            </div>
+            <div>Press "D" if you want to tweak some options</div>
+            <div>Checkout the code on <a href="https://github.com/brunosimon/christmas-experiment-2014" target="_blank">github</a></div>
+            <div>Merry Christmas - <a href="http://bruno-simon.com" target="_blank">bruno-simon</a></div>
             <div class="close button">X</div>
         </div>
 
@@ -77,6 +84,10 @@
                 <div class="box"></div>
                 <div class="label">High quality</div>
             </div>
+        </div>
+
+        <div class="loose">
+            You loose...
         </div>
     </div>
 
@@ -305,6 +316,7 @@
     <script src="src/js/libs/jquery-2.1.1.min.js"></script>
     <script src="src/js/libs/class.js"></script>
     <script src="src/js/libs/matter-0.8.0.min.js"></script>
+    <script src="src/js/libs/howler.min.js"></script>
 
     <!-- LIBS : THREE -->
     <script src="src/js/libs/three-js/three.min.js"></script>
@@ -335,6 +347,7 @@
     <!-- COMPONENTS -->
     <script src="src/js/app/components/debug.class.js"></script>
     <script src="src/js/app/components/ui.class.js"></script>
+    <script src="src/js/app/components/sounds.class.js"></script>
     <script src="src/js/app/components/world/world.class.js"></script>
     <script src="src/js/app/components/world/renderer.class.js"></script>
     <script src="src/js/app/components/world/lights.class.js"></script>
