@@ -18,8 +18,9 @@
         {
             this._super( options );
 
-            this.alive   = true;
-            this.arrived = false;
+            this.alive         = true;
+            this.arrived       = false;
+            this.start_running = false;
         },
 
         /**
@@ -63,7 +64,7 @@
                 20 * this.options.scale,
                 28 * this.options.scale,
                 {
-                    frictionAir : 0.05,
+                    frictionAir : 0.08,
                     friction    : 0.0001,
                     restitution : 0.8,
                     density     : 0.01

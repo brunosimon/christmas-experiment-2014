@@ -45,10 +45,16 @@
         {
             var that = this;
 
-            this.music = new Howl({
+            this.music = new Howl( {
                 urls     : [ 'src/sounds/8-bit-christmas-carol-of-the-bells-by-rush-coil.mp3', 'src/sounds/8-bit-christmas-carol-of-the-bells-by-rush-coil.ogg' ],
-                autoplay : true
-            });
+                autoplay : true,
+                loop     : true
+            } );
+
+            this.wilhem = new Howl( {
+                volume : 0.25,
+                urls   : [ 'src/sounds/wilhelm-scream.mp3', 'src/sounds/wilhelm-scream.ogg' ]
+            } );
 
             if( this.muted )
                 that.mute();
@@ -84,7 +90,7 @@
         frame: function()
         {
             this.volume.current += ( this.volume.target - this.volume.current ) * 0.1;
-            Howler.volume( this.volume.current );
+            this.music.volume( this.volume.current );
         }
     });
 })();

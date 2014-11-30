@@ -56,7 +56,7 @@
             // Keyboard
             this.keyboard.on( 'down', function( character )
             {
-                if( character === 'd' )
+                if( character === 't' )
                     that.toggle();
             } );
         },

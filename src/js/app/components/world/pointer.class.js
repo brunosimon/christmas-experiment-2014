@@ -40,7 +40,7 @@
 
             this.wireframe_material = new THREE.LineBasicMaterial({
                 color: 0xa4edff,
-                linewidth : 2
+                linewidth : 4
             });
             this.wireframe_material.transparent = true;
             this.wireframe_material.opacity     = 0;
@@ -244,7 +244,7 @@
 
             this.opacity = this.opacity > 1 ? 1 : this.opacity < 0 ? 0 : this.opacity;
 
-            this.fill_material.opacity      = this.opacity * 0.2;
+            this.fill_material.opacity      = this.opacity * 0.4;
             this.wireframe_material.opacity = this.opacity;
 
             // Position

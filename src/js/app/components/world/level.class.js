@@ -10,13 +10,14 @@
             {
                 count : 16,
                 size  : 2.5,
-                types : [
-                    'room',
-                    'marshmallow',
-                    'mill',
-                    'mills',
-                    'explosives'
-                ],
+                types :
+                {
+                    empty       : true,
+                    marshmallow : true,
+                    mill        : true,
+                    mills       : true,
+                    explosives  : true
+                },
                 colors :
                 {
                     default : 0xF0771A,
@@ -85,11 +86,16 @@
             this.debug.instance = new APP.COMPONENTS.Debug();
 
             this.debug.lvl_debug           = this.debug.instance.gui.level.add( this.options.debug, 'available' ).name( 'debug' );
-            this.debug.rooms_count         = this.debug.instance.gui.level.add( this.options.rooms, 'count', 1, 20 ).step( 1 ).name( 'rooms count' );
+            this.debug.rooms_count         = this.debug.instance.gui.level.add( this.options.rooms, 'count', 1, 30 ).step( 1 ).name( 'rooms count' );
             this.debug.init_level          = this.debug.instance.gui.level.add( this, 'init_new_level' ).name( 'new level' );
             this.debug.rooms_color_default = this.debug.instance.gui.level.addColor( this.options.rooms.colors, 'default' ).name( 'room color default' );
             this.debug.rooms_color_end     = this.debug.instance.gui.level.addColor( this.options.rooms.colors, 'end' ).name( 'room color end' );
             this.debug.rooms_color_start   = this.debug.instance.gui.level.addColor( this.options.rooms.colors, 'start' ).name( 'room color start' );
+            this.debug.type_empty          = this.debug.instance.gui.level.add( this.options.rooms.types, 'empty' ).name( 'type empty' );
+            this.debug.type_marshmallow    = this.debug.instance.gui.level.add( this.options.rooms.types, 'marshmallow' ).name( 'type marshmallow' );
+            this.debug.type_mill           = this.debug.instance.gui.level.add( this.options.rooms.types, 'mill' ).name( 'type mill' );
+            this.debug.type_mills          = this.debug.instance.gui.level.add( this.options.rooms.types, 'mills' ).name( 'type mills' );
+            this.debug.type_explosives     = this.debug.instance.gui.level.add( this.options.rooms.types, 'explosives' ).name( 'type explosives' );
 
             function update_rooms_colors()
             {
@@ -325,8 +331,18 @@
                 // Random
                 else
                 {
-                    var random = Math.floor( Math.random() * this.options.rooms.types.length);
-                    type = this.options.rooms.types[ random ];
+                    var types = [],
+                        keys  = Object.keys( this.options.rooms.types );
+
+                    for( var k = 0; k < keys.length; k++ )
+                    {
+                        if( this.options.rooms.types[ keys[ k ] ] )
+                            types.push( keys[ k ] );
+                    }
+
+                    var random = Math.floor( Math.random() * types.length);
+
+                    type = types[ random ];
                 }
 
                 this.add_room( coordinates, type );

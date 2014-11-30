@@ -171,6 +171,8 @@
 
             // Ui
             this.ui.set_state( 'playing' );
+            if( this.loose_timeout )
+                window.clearTimeout( this.loose_timeout );
 
             this.world.restart();
         },
@@ -186,8 +188,14 @@
             this.stats.game.over  = true;
             this.stats.game.state = 'win';
 
-            // UI
+            // Sound
             window.setTimeout( function()
+            {
+                that.sounds.wilhem.play();
+            }, 350 );
+
+            // UI
+            this.loose_timeout = window.setTimeout( function()
             {
                 that.ui.set_state( 'loose' );
             }, 2000);

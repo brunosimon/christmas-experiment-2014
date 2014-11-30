@@ -91,6 +91,7 @@
             // lights
             this.lights = new APP.COMPONENTS.WORLD.Lights( { scene : this.scene } );
             this.lights.start();
+            this.lights.set_multiplicator(1.8);
 
             // Level
             this.level = new APP.COMPONENTS.WORLD.Level( { scene : this.scene } );
@@ -142,7 +143,7 @@
             } );
 
             // Mouse wheel
-            this.distance = 2;
+            this.distance = 2.8;
             this.mouse.on( 'wheel', function()
             {
                 that.distance += - that.mouse.wheel.delta / 200;
@@ -151,6 +152,20 @@
                     that.distance = 0.6;
                 else if(that.distance > 4)
                     that.distance = 4;
+            } );
+
+            // Mouse down
+            this.mouse.on( 'down', function( target )
+            {
+                // Click on canvas
+                if( target.tagName.toLowerCase() === 'canvas' )
+                    that.physics.interactions = true;
+            } );
+
+            // Mouse up
+            this.mouse.on( 'up', function()
+            {
+                that.physics.interactions = false;
             } );
 
             // Renderer
@@ -191,11 +206,12 @@
         get_average_position: function()
         {
             var average = {},
-                count   = 1;
+                count   = 1,
+                santa_multiplicator = Math.round( this.options.elves.count );
 
-            average.x = this.santa.object.position.x;
-            average.y = this.santa.object.position.y;
-            average.z = this.santa.object.position.z;
+            average.x = this.santa.object.position.x * santa_multiplicator;
+            average.y = this.santa.object.position.y * santa_multiplicator;
+            average.z = this.santa.object.position.z * santa_multiplicator;
 
             for( var i = 0; i < this.elves.length; i++ )
             {
@@ -211,9 +227,9 @@
                 }
             }
 
-            average.x /= count;
-            average.y /= count;
-            average.z /= count;
+            average.x /= count + santa_multiplicator;
+            average.y /= count + santa_multiplicator;
+            average.z /= count + santa_multiplicator;
 
             return average;
         },
@@ -256,7 +272,7 @@
             }
 
             // Pointer
-            if( this.mouse.down )
+            if( this.mouse.down && this.physics.interactions )
                 this.pointer.show();
             else
                 this.pointer.hide();
@@ -285,7 +301,7 @@
             if( quality === 'high' )
             {
                 // Lights
-                this.lights.set_multiplicator( 1 );
+                this.lights.set_multiplicator( 1.8 );
 
                 // Shaders
                 this.renderer.options.shaders = true;
@@ -313,6 +329,7 @@
             this.santa.speed.y           = 0;
             this.santa.arrived           = false;
             this.santa.alive             = true;
+            this.santa.start_running     = false;
 
             // Elves
             for( var i = 0; i < this.elves.length; i++ )
@@ -321,6 +338,7 @@
                 elf.speed.y  = 0;
                 elf.alive    = true;
                 elf.arrived  = false;
+                Matter.Body.resetForcesAll( elf.physic );
                 elf.set_rotation( 0 );
                 elf.set_position(
                     Math.sin( i / this.options.elves.count * Math.PI * 2 ) * this.options.elves.distance,

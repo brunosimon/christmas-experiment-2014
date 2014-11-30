@@ -22,21 +22,23 @@
         {
             this._super( options );
 
+            this.ticler = new APP.TOOLS.Ticker();
+
             // Materials
-            this.fill_material = this.three_helper.get( 'material-explosive-fill' );
-            if( !this.fill_material )
+            this.box_material = this.three_helper.get( 'material-explosive-box' );
+            if( !this.box_material )
             {
-                this.fill_material = this.three_helper.set( 'material-explosive-fill', new THREE.MeshLambertMaterial( { color : 0xff0000, shading : THREE.FlatShading } ) );
-                this.fill_material.transparent = true;
-                this.fill_material.opacity     = 1;
+                this.box_material = this.three_helper.set( 'material-explosive-box', new THREE.MeshLambertMaterial( { color : 0xff0000, shading : THREE.FlatShading } ) );
+                this.box_material.transparent = true;
+                this.box_material.opacity     = 1;
             }
 
-            this.wireframe_material = this.three_helper.get( 'material-explosive-wireframe' );
-            if( !this.wireframe_material )
+            this.sphere_material = this.three_helper.get( 'material-explosive-sphere' );
+            if( !this.sphere_material )
             {
-                this.wireframe_material = this.three_helper.set( 'material-explosive-wireframe', new THREE.LineBasicMaterial( { color : 0xffffff, linewidth : 2 } ) );
-                this.wireframe_material.transparent = true;
-                this.wireframe_material.opacity     = 1;
+                this.sphere_material = this.three_helper.set( 'material-explosive-sphere', new THREE.MeshLambertMaterial( { color : 0xffffff, shading : THREE.FlatShading } ) );
+                this.sphere_material.transparent = true;
+                this.sphere_material.opacity     = 0.6;
             }
         },
 
@@ -73,9 +75,16 @@
                 if( far_enough )
                 {
                     // Create explosive
-                    var item = this.create_box( x, z );
-                    this.scene.add( item );
-                    this.items.push( item );
+                    var box    = this.create_box( x, z ),
+                        sphere = this.create_sphere( 0, 0 );
+
+                    box.add( sphere );
+                    box.shock_wave = sphere;
+
+                    box.state = 'pending';
+
+                    this.scene.add( box );
+                    this.items.push( box );
 
                     count--;
                 }
@@ -90,90 +99,44 @@
         create_box: function( x, z )
         {
             // Variables
-            var object             = new THREE.Object3D(),
-                geometry           = null,
-                wireframe_geometry = null,
-                mesh               = null,
-                line               = null,
-                size               = 0.1;
+            var object   = new THREE.Object3D(),
+                geometry = null,
+                mesh     = null,
+                line     = null,
+                size     = 0.1;
 
             object.position.x = x;
-            object.position.y = 0.001;
+            object.position.y = 0;
             object.position.z = z;
 
             // Cube base full
             geometry = new THREE.BoxGeometry( 0.1, 0.1, 0.1, 1, 1, 1 );
-            mesh     = new THREE.Mesh( geometry, this.fill_material );
+            mesh     = new THREE.Mesh( geometry, this.box_material );
             mesh.position.y = 0.05;
             object.add( mesh );
 
-            // // Cube wireframe
-            // geometry = new THREE.Geometry();
-            // geometry.vertices.push(
-            //     new THREE.Vector3( 0,    0, 0),
-            //     new THREE.Vector3( size, 0, 0),
-            //     new THREE.Vector3( size, 0, size),
-            //     new THREE.Vector3( 0,    0, size),
-            //     new THREE.Vector3( 0,    0, 0)
-            // );
-            // line = new THREE.Line( geometry, this.wireframe_material );
-            // line.position.x = - 0.05;
-            // line.position.z = - 0.05;
-            // object.add( line );
+            return object;
+        },
 
-            // geometry = new THREE.Geometry();
-            // geometry.vertices.push(
-            //     new THREE.Vector3( 0,    size, 0),
-            //     new THREE.Vector3( size, size, 0),
-            //     new THREE.Vector3( size, size, size),
-            //     new THREE.Vector3( 0,    size, size),
-            //     new THREE.Vector3( 0,    size, 0)
-            // );
-            // line = new THREE.Line( geometry, this.wireframe_material );
-            // line.position.x = - 0.05;
-            // line.position.y = - 0.001;
-            // line.position.z = - 0.05;
-            // object.add( line );
+        /**
+         * CREATE SPHERE
+         */
+        create_sphere: function( x, z )
+        {
+            // Variables
+            var object   = new THREE.Object3D(),
+                geometry = null,
+                mesh     = null,
+                line     = null,
+                size     = 0.1;
 
-            // geometry = new THREE.Geometry();
-            // geometry.vertices.push(
-            //     new THREE.Vector3( 0, 0,    0),
-            //     new THREE.Vector3( 0, size, 0)
-            // );
-            // line = new THREE.Line( geometry, this.wireframe_material );
-            // line.position.x = - 0.05;
-            // line.position.z = - 0.05;
-            // object.add( line );
+            object.position.x = x;
+            object.position.y = 0;
+            object.position.z = z;
 
-            // geometry = new THREE.Geometry();
-            // geometry.vertices.push(
-            //     new THREE.Vector3( size, 0,    0),
-            //     new THREE.Vector3( size, size, 0)
-            // );
-            // line = new THREE.Line( geometry, this.wireframe_material );
-            // line.position.x = - 0.05;
-            // line.position.z = - 0.05;
-            // object.add( line );
-
-            // geometry = new THREE.Geometry();
-            // geometry.vertices.push(
-            //     new THREE.Vector3( size, 0,    size),
-            //     new THREE.Vector3( size, size, size)
-            // );
-            // line = new THREE.Line( geometry, this.wireframe_material );
-            // line.position.x = - 0.05;
-            // line.position.z = - 0.05;
-            // object.add( line );
-
-            // geometry = new THREE.Geometry();
-            // geometry.vertices.push(
-            //     new THREE.Vector3( 0, 0,    size),
-            //     new THREE.Vector3( 0, size, size)
-            // );
-            // line = new THREE.Line( geometry, this.wireframe_material );
-            // line.position.x = - 0.05;
-            // line.position.z = - 0.05;
-            // object.add( line );
+            geometry = new THREE.SphereGeometry( 0.01, 16, 16 );
+            mesh     = new THREE.Mesh( geometry, this.sphere_material );
+            object.add( mesh );
 
             return object;
         },
@@ -183,11 +146,12 @@
          */
         frame: function()
         {
-
-            var explosions = [],
+            var that       = this,
+                explosions = [],
                 bodies     = [],
                 len_1      = 0,
                 len_2      = 0,
+                explosion  = null,
                 i          = 0,
                 j          = 0;
 
@@ -217,19 +181,48 @@
             // KABOOM
             for( i = 0, len_1 = explosions.length; i < len_1; i++ )
             {
-                var explosion = explosions[ i ];
+                explosion = explosions[ i ];
 
-                // Create forces
-                this.physics.explosion(
-                    explosion.position.x * this.physics.options.scale + this.physics.options.offset.x,
-                    explosion.position.z * this.physics.options.scale + this.physics.options.offset.y,
-                    0.7 * this.physics.options.scale,
-                    0.00010
-                );
 
-                // Remove object
-                this.scene.remove( explosion );
-                this.items.splice( this.items.indexOf( explosion ), 1);
+                if( explosion.state === 'pending' )
+                {
+                    explosion.state = 'exploding';
+
+                    // Create forces
+                    this.physics.explosion(
+                        explosion.position.x * this.physics.options.scale + this.physics.options.offset.x,
+                        explosion.position.z * this.physics.options.scale + this.physics.options.offset.y,
+                        0.7 * this.physics.options.scale,
+                        0.00010
+                    );
+                }
+            }
+
+            // ANIMATION
+            for( i = 0, len_1 = this.items.length; i < len_1; i++ )
+            {
+                explosion = this.items[ i ];
+
+                if( explosion.state === 'exploding' )
+                {
+                    if( !explosion.time_spend )
+                        explosion.time_spend = 0;
+                    explosion.time_spend += this.ticker.delta;
+
+                    explosion.shock_wave.scale.x += 0.5 * this.ticker.delta;
+                    explosion.shock_wave.scale.y += 0.5 * this.ticker.delta;
+                    explosion.shock_wave.scale.z += 0.5 * this.ticker.delta;
+
+                    // Remove object
+                    if( explosion.time_spend > 200)
+                    {
+                        that.scene.remove( explosion );
+                        that.items.splice( i, 1 );
+
+                        i--;
+                        len_1 = this.items.length;
+                    }
+                }
             }
         },
 

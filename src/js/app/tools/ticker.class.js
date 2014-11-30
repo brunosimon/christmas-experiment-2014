@@ -76,7 +76,7 @@
          */
         tick: function()
         {
-            if(!this.started)
+            if( !this.started )
                 this.start();
 
             this.time         = + ( new Date() );

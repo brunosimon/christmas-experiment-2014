@@ -19,10 +19,11 @@
         {
             this._super( options );
 
-            this.ticker     = new APP.TOOLS.Ticker();
-            this.scene      = this.options.scene;
-            this.wind       = new THREE.Vector3( 0, 0, 0 );
-            this.gravity    = -0.0005;
+            this.ticker  = new APP.TOOLS.Ticker();
+            this.browser = new APP.TOOLS.Browser();
+            this.scene   = this.options.scene;
+            this.wind    = new THREE.Vector3( 0, 0, 0 );
+            this.gravity = -0.0005;
             // this.gravity    = 0;
         },
 
@@ -47,7 +48,7 @@
             this.uniforms.time            = { type : 'f', value : 0 };
             this.uniforms.timeScale       = { type : 'f', value : 0.00025 };
             this.uniforms.fadeDistance    = { type : 'f', value : 1 };
-            this.uniforms.particleScale   = { type : 'f', value : 5 };
+            this.uniforms.particleScale   = { type : 'f', value : 6 };
             this.uniforms.particlesColor  = { type : 'c', value : new THREE.Color( 0xffffff ) };
 
             this.attributes.alpha = {type:'f',value:[]};

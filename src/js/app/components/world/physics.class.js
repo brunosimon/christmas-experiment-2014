@@ -15,7 +15,7 @@
             },
             forces :
             {
-                santa : 0.01,
+                santa : 0.018,
                 elves : 0.0005
             }
         },
@@ -38,10 +38,10 @@
         {
             this._super( options );
 
-            this.mouse  = new APP.TOOLS.Mouse();
-            this.ticker = new APP.TOOLS.Ticker();
-            this.target = { x : 0 , y : 0 };
-            this.wind   = { x : 0 , y : 0 };
+            this.interactions = false;
+            this.ticker       = new APP.TOOLS.Ticker();
+            this.target       = { x : 0 , y : 0 };
+            this.wind         = { x : 0 , y : 0 };
 
             APP.COMPONENTS.WORLD.Physics.prototype.instance = this;
         },
@@ -75,8 +75,9 @@
             Matter.World.addComposite( this.engine.world, this.blocks_composite );
 
             // Bounds
-            this.bounds     = [];
-            this.end_bounds = null;
+            this.bounds       = [];
+            this.end_bounds   = null;
+            this.start_bounds = null;
 
             // Init Debug (need a frame)
             window.requestAnimationFrame(function()
@@ -155,8 +156,8 @@
                     // Stronger for santa
                     if( i === 0 )
                     {
-                        force.x *= 20;
-                        force.y *= 20;
+                        force.x *= 30;
+                        force.y *= 30;
                     }
 
                     Matter.Body.applyForce( body, { x : body.position.x, y : body.position.y }, force );
@@ -221,6 +222,13 @@
                     bodies[ i ].instance.arrived = true;
             }
 
+            // Start region
+            bodies = Matter.Query.region( this.santa_composite.bodies, this.start_bounds );
+
+            // Started
+            if( this.santa && bodies.length === 0 )
+                this.santa.instance.start_running = true;
+
             // Force
             var force = null;
 
@@ -240,7 +248,7 @@
             }
 
             // Force on santa
-            if( this.mouse.down )
+            if( this.interactions )
             {
                 if( this.santa.instance.alive )
                 {

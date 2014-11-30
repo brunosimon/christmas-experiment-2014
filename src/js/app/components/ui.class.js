@@ -33,6 +33,7 @@
 
             this.$.canvas       = document.querySelector( 'canvas#three-canvas' );
             this.$.main         = document.querySelector( '.ui' );
+            this.$.mask         = this.$.main.querySelector( '.mask' );
             this.$.title        = this.$.main.querySelector( 'h1' );
             this.$.instructions = this.$.main.querySelector( '.instructions' );
             this.$.play         = this.$.main.querySelector( '.play' );
@@ -48,6 +49,10 @@
             this.$.scores.time    = this.$.scores.main.querySelector( '.time .value' );
             this.$.scores.elves   = this.$.scores.main.querySelector( '.elves .value' );
             this.$.scores.comment = this.$.scores.main.querySelector( '.comment' );
+
+            this.$.social          = {};
+            this.$.social.facebook = this.$.scores.main.querySelector( '.facebook' );
+            this.$.social.twitter  = this.$.scores.main.querySelector( '.twitter' );
 
             this.$.tweaks         = {};
             this.$.tweaks.main    = this.$.main.querySelector( '.tweaks' );
@@ -115,7 +120,10 @@
 
             this.$.credits.trigger.onclick = function()
             {
-                that.show( that.$.credits.main );
+                if( that.$.credits.main.style.display === 'block' )
+                    that.hide( that.$.credits.main );
+                else
+                    that.show( that.$.credits.main );
 
                 return false;
             };
@@ -127,6 +135,45 @@
                 return false;
             };
 
+            this.$.social.twitter.onclick = function()
+            {
+                var text = 'I just saved ' + that.$.scores.elves.innerText + ' elves in ' + that.$.scores.time.innerText,
+                    url  = 'http://twitter.com/share?text=' + text,
+                    opts = [
+                        'status=1',
+                        ',width=575',
+                        ',height=400',
+                        ',top=', ( that.browser.height - 400 ) / 2,
+                        ',left=', ( that.browser.width - 575 ) / 2
+                    ].join('');
+
+                window.open( url, 'Twitter', opts );
+
+                return false;
+            };
+
+            this.$.social.facebook.onclick = function()
+            {
+                var text = 'I just saved 28/30 elves in 00:32',
+                    url  = [
+                        'http://www.facebook.com/sharer.php?',
+                        's=100',
+                        '&p[title]=', 'Santa Workout',
+                        '&p[summary]=', text,
+                        '&p[url]=', window.top.location.href
+                    ].join(''),
+                    opts = [
+                        'status=1',
+                        ',width=520',
+                        ',height=350',
+                        ',top=', ( that.browser.height - 350 ) / 2,
+                        ',left=', ( that.browser.width - 520 ) / 2
+                    ].join('');
+
+                window.open( url, 'Twitter', opts );
+
+                return false;
+            };
 
             if (that.sounds.muted)
             {
@@ -152,7 +199,10 @@
             window.requestAnimationFrame( function()
             {
                 element.classList.add( 'animated' );
-                element.style.opacity = 1;
+                window.requestAnimationFrame( function()
+                {
+                    element.style.opacity = 1;
+                } );
             } );
         },
 
@@ -216,7 +266,7 @@
                 if( elves < 0.5 )
                     message = 'Don\'t forget the elves';
                 else if( elves < 0.8 )
-                    message = 'Good !';
+                    message = Math.random() < 0.5 ? 'Good!' : 'Awesome!';
                 else
                     message = 'Christmas has found a new hero';
             }
@@ -224,19 +274,22 @@
             // Pretty fast
             else if( time < 1.2 )
             {
-                if( elves < 0.5 )
-                    message = 'And the elves ?';
+                if( elves < 0.4 )
+                    message = Math.random() < 0.5 ? 'So many losses...' : '...And the elves?';
+                else if( elves < 0.7 )
+                    message = 'That was fast!';
                 else
-                    message = 'Pretty fast !';
+                    message = 'Nice';
+
             }
 
             // Not so fast
             else if( time < 1.6 )
             {
                 if( elves < 0.5 )
-                    message = 'And the elves ?';
+                    message = 'What about the elves though?';
                 else
-                    message = 'Not bad';
+                    message = Math.random() < 0.5 ? 'Not bad' : 'Pretty good';
             }
 
             // Too slow
@@ -252,7 +305,7 @@
             else if( time < 3 )
             {
                 if( elves < 0.8 )
-                    message = 'Sorry I felt asleep';
+                    message = 'I fell asleep watching you play...';
                 else
                     message = 'Slow elves savior';
             }
@@ -260,16 +313,16 @@
             // Felt asleep
             else
             {
-                message = 'You\'re gone to be late for christmas';
+                message = 'You\'re going to be late for christmas';
             }
 
             // Many dead elves
             if( elves === 0 )
-                message = 'Did you forget something ?';
+                message = Math.random() < 0.5 ? 'What are you trying to do?' : 'Did you forget something?';
 
             // All elves are dead
             else if( elves <= 0.2 )
-                message = 'Elves killer';
+                message = Math.random() < 0.5 ? 'What a mess...' : 'Elf killer';
 
             // Cheating
             if( time < 0.1 )
@@ -280,7 +333,7 @@
             // Cheating
             else if( time < 0.5 )
             {
-                message = 'Cheater !';
+                message = 'Cheater!';
             }
 
             this.$.scores.comment.innerHTML = '"' + message + '"';
@@ -332,6 +385,8 @@
                     this.show( this.$.live.time );
                     this.show( this.$.live.elves );
 
+                    this.$.mask.style.display = 'none';
+
                     this.sounds.volume.target = 1;
 
                     if( this.options.blur )
@@ -353,6 +408,8 @@
                     this.$.play.style.width      = '240px';
                     this.$.play.style.marginLeft = '-120px';
 
+                    this.$.mask.style.display = 'block';
+
                     this.sounds.volume.target = 0.3;
 
                     if( this.options.blur )
@@ -372,6 +429,8 @@
                     this.$.play.innerHTML        = 'Try again';
                     this.$.play.style.width      = '240px';
                     this.$.play.style.marginLeft = '-120px';
+
+                    this.$.mask.style.display = 'block';
 
                     this.sounds.volume.target = 0.3;
 
