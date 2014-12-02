@@ -52,7 +52,7 @@
             } );
 
             this.wilhem = new Howl( {
-                volume : 0.25,
+                volume : 0.35,
                 urls   : [ 'src/sounds/wilhelm-scream.mp3', 'src/sounds/wilhelm-scream.ogg' ]
             } );
 

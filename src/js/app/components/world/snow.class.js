@@ -6,7 +6,7 @@
     {
         options :
         {
-            count         : 5000,
+            count         : 10000,
             multiplier    : 1,
             volume_corner : { x : - 2, y : 0.1, z : - 2 },
             volume_size   : { x : 4, y : 4, z : 4 },
@@ -46,7 +46,7 @@
             this.uniforms.perlinIntensity = { type : 'f', value : 1.5 };
             this.uniforms.perlinFrequency = { type : 'f', value : 0.5 };
             this.uniforms.time            = { type : 'f', value : 0 };
-            this.uniforms.timeScale       = { type : 'f', value : 0.00025 };
+            this.uniforms.timeScale       = { type : 'f', value : 0.0004 };
             this.uniforms.fadeDistance    = { type : 'f', value : 1 };
             this.uniforms.particleScale   = { type : 'f', value : 6 };
             this.uniforms.particlesColor  = { type : 'c', value : new THREE.Color( 0xffffff ) };

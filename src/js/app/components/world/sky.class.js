@@ -7,8 +7,8 @@
         options :
         {
             scene        : null,
-            bottom_color : 0x002b5c,
-            top_color    : 0x0087ff,
+            bottom_color : 0x001834,
+            top_color    : 0x0071d7,
             min_clamp    : -1,
             max_clamp    : 1,
         },

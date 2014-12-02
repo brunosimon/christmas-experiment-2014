@@ -33,8 +33,6 @@
                 ];
 
             this.physics.start_bounds = Matter.Bounds.create( bounds );
-
-            console.log(this.physics.start_bounds);
         }
     });
 })();

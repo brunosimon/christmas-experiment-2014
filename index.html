@@ -1,7 +1,12 @@
 <!--
   Hi,
-  Press T to toggle debug,
-  Have fun :)
+  This game was developed for the 2014 Christmas Experiments.
+  Thanks to Shane B. (Rush Coil) for the Music.
+  Thanks to David Ronai for inviting me to participate.
+  Press 'T' in order to tweak some settings.
+  Check out the code on https://github.com/brunosimon/christmas-experiment-2014
+
+  Merry Christmas
 -->
 <!DOCTYPE html>
 <html lang="en">
@@ -72,7 +77,7 @@
                 <br />Thanks to Shane B. (Rush Coil) for <a href="http://rushcoil.bandcamp.com/album/8-bit-christmas" target="_blank">the Music</a>.
                 <br />Thanks to David Ronai for inviting me to participate.
             </div>
-            <div>Press "T" in order to tweak some settings.</div>
+            <div>Press <span class="key">T</span> in order to tweak some settings.</div>
             <div>Check out the code on <a href="https://github.com/brunosimon/christmas-experiment-2014" target="_blank">github</a>.</div>
             <div>Merry Christmas<br /><a href="http://bruno-simon.com" target="_blank">bruno-simon</a></div>
             <div class="close button">X</div>
@@ -314,14 +319,17 @@
     </script>
 
     <!-- LIBS : MISC -->
+    <!--
     <script src="src/js/libs/dat.gui.min.js"></script>
     <script src="src/js/libs/rStats.js"></script>
     <script src="src/js/libs/jquery-2.1.1.min.js"></script>
     <script src="src/js/libs/class.js"></script>
     <script src="src/js/libs/matter-0.8.0.min.js"></script>
     <script src="src/js/libs/howler.min.js"></script>
+    -->
 
     <!-- LIBS : THREE -->
+    <!--
     <script src="src/js/libs/three-js/three.min.js"></script>
     <script src="src/js/libs/three-js/shaders/AdditiveBlendingShader.js"></script>
     <script src="src/js/libs/three-js/shaders/ConvolutionShader.js"></script>
@@ -338,16 +346,22 @@
     <script src="src/js/libs/three-js/postprocessing/RenderPass.js"></script>
     <script src="src/js/libs/three-js/postprocessing/ShaderPass.js"></script>
     <script src="src/js/libs/three-js/postprocessing/MaskPass.js"></script>
+    -->
 
     <!-- APP -->
+    <!--
     <script src="src/js/app/app.js"></script>
+    -->
 
     <!-- CORE -->
+    <!--
     <script src="src/js/app/core/abstract.class.js"></script>
     <script src="src/js/app/core/event_emitter.class.js"></script>
     <script src="src/js/app/core/app.class.js"></script>
+    -->
 
     <!-- COMPONENTS -->
+    <!--
     <script src="src/js/app/components/debug.class.js"></script>
     <script src="src/js/app/components/ui.class.js"></script>
     <script src="src/js/app/components/sounds.class.js"></script>
@@ -371,8 +385,10 @@
     <script src="src/js/app/components/world/rooms/room.explosives.class.js"></script>
     <script src="src/js/app/components/world/rooms/room.marshmallow.class.js"></script>
     <script src="src/js/app/components/world/rooms/room.empty.class.js"></script>
+    -->
 
     <!-- TOOLS -->
+    <!--
     <script src="src/js/app/tools/browser.class.js"></script>
     <script src="src/js/app/tools/css.class.js"></script>
     <script src="src/js/app/tools/images.class.js"></script>
@@ -380,6 +396,10 @@
     <script src="src/js/app/tools/keyboard.class.js"></script>
     <script src="src/js/app/tools/mouse.class.js"></script>
     <script src="src/js/app/tools/ticker.class.js"></script>
+    -->
+
+    <!-- MINIFY -->
+    <script src="src/js/santa-workout.min.js"></script>
 
     <script>
         var app = new APP.CORE.App();

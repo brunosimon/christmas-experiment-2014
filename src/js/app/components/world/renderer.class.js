@@ -9,9 +9,9 @@
             shaders : true,
             passes  :
             {
-                bloom               : true,
+                bloom               : false,
                 fxaa                : true,
-                tilt_shift          : false,
+                tilt_shift          : true,
                 color               : true,
                 brightness_contrast : true
             },
@@ -22,7 +22,7 @@
             blur_amount         : 0.001,
             tilt_shift_position : 0.55,
             tilt_shift_strength : 1,
-            color               : { r : 1.1, g : 1, b : 0.9 }
+            color               : { r : 1.1, g : 1, b : 1.2 }
         },
 
         /**
@@ -110,8 +110,8 @@
             this.horizontal_tilt_pass     = new THREE.ShaderPass( THREE.HorizontalTiltShiftShader );
             this.vertical_tilt_pass       = new THREE.ShaderPass( THREE.VerticalTiltShiftShader );
 
-            this.brightness_contrast_pass.uniforms.brightness.value = -0.06;
-            this.brightness_contrast_pass.uniforms.contrast.value   = 0;
+            this.brightness_contrast_pass.uniforms.brightness.value = + 0.04;
+            this.brightness_contrast_pass.uniforms.contrast.value   = + 0.11;
 
             this.fxaa_pass.uniforms.resolution.value.set( (1 / this.browser.width) / this.wtf_ratio, (1 / this.browser.height) / this.wtf_ratio );
 
@@ -211,7 +211,7 @@
             this.debug.instance = new APP.COMPONENTS.Debug();
 
             this.debug.shaders                    = this.debug.instance.gui.render.add( this.options,'shaders').name( 'shaders' );
-            this.debug.brightness_contrast_shader = this.debug.instance.gui.render.add( this.options.passes, 'brightness_contrast' ).name( 'brightness / contrast' );
+            this.debug.brightness_contrast_shader = this.debug.instance.gui.render.add( this.options.passes, 'brightness_contrast' ).name( 'brightness/contrast' );
             this.debug.brightness                 = this.debug.instance.gui.render.add( this.brightness_contrast_pass.uniforms.brightness, 'value', -1, 1 ).step( 0.01 ).name( 'brightness' );
             this.debug.contrast                   = this.debug.instance.gui.render.add( this.brightness_contrast_pass.uniforms.contrast, 'value' ,-1 ,1 ).step( 0.01 ).name( 'contrast' );
             this.debug.fxaa_shader                = this.debug.instance.gui.render.add( this.options.passes, 'fxaa' ).name( 'FXAA shader' );

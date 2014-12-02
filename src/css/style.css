@@ -58,6 +58,7 @@ canvas#three-canvas {-webkit-transition:-webkit-filter 0.3s;}
 .ui .credits > div {margin:10px 10px 20px 10px;}
 .ui .credits-trigger {position:fixed;bottom:20px;right:20px;padding:12px 10px 10px 10px;cursor:pointer;}
 .ui .credits .close {position:absolute;top:-26px;right:-26px;width:46px;height:44px;padding:22px 0 0 2px;text-align:center;font-size:30px;line-height:0;}
+.ui .credits .key {position: relative;top:-1px;display:inline-block;border:1px solid #fff;padding:5px 8px 0px;margin:0 4px;line-height:16px;}
 
 .ui .scores {display:none;position:fixed;top:50%;left:50%;width:400px;margin:-160px 0 0 -200px;padding:27px 30px 22px 30px;text-align:center;font-size:30px;}
 .ui .scores .value {display:inline-block;float:right;}
