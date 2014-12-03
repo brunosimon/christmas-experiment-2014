@@ -19,3 +19,5 @@ Press 'T' in order to tweak some settings.
 Thanks to [Shane B. (Rush Coil)](http://rushcoil.bandcamp.com/) for the Music.  
 Thanks to David Ronai for inviting me to participate.
 
+### Tweaks preview
+![Tweaks preview](https://github.com/brunosimon/christmas-experiment-2014/blob/master/src/img/tweaks.jpg "Tweaks preview")
