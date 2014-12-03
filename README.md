@@ -8,11 +8,11 @@ Press 'T' in order to tweak some settings.
 
 ### Libraries
 
-[Three.js](http://threejs.org/)
-[Matter.js](http://brm.io/matter-js/)
-[Howler.js](http://howlerjs.com/)
-[dat.GUI](http://workshop.chromeexperiments.com/examples/gui/#1--Basic-Usage)
-[rStats](http://spite.github.io/rstats/)
+- [Three.js](http://threejs.org/)
+- [Matter.js](http://brm.io/matter-js/)
+- [Howler.js](http://howlerjs.com/)
+- [dat.GUI](http://workshop.chromeexperiments.com/examples/gui/#1--Basic-Usage)
+- [rStats](http://spite.github.io/rstats/)
 
 ### Credits
 
