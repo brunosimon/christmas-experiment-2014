@@ -45,18 +45,18 @@ canvas#three-canvas {-webkit-transition:-webkit-filter 0.3s;}
 
 .ui .play {position:fixed;top:50%;left:50%;width:140px;margin:140px 0 0 -70px;text-align:center;font-size:36px;padding:17px 10px 8px 10px;}
 
-.ui .tweaks {position:fixed;top:20px;right:20px;}
+.ui .tweaks {position:fixed;bottom:20px;right:20px;}
 .ui .tweaks > div {margin:10px;cursor:pointer;}
 .ui .tweaks .box {display:inline-block;position:relative;width:24px;height:24px;background:#1E2734;border:4px solid #fff;box-shadow:0px 3px #C9C9C9;}
 .ui .tweaks > div:hover .box {box-shadow:0px 1px #C9C9C9;-webkit-transform:translateY(2px);-moz-transform:translateY(2px);-o-transform:translateY(2px);transform:translateY(2px);}
 .ui .tweaks .active .box:after {content:'';display:block;position:absolute;top:4px;right:4px;bottom:4px;left:4px;background:#fff;}
 .ui .tweaks .label {display:inline-block;position:relative;top:-8px;padding:0 10px 0 10px;}
 
-.ui .replay {display:none;position:fixed;bottom:20px;right:110px;padding:8px 7px 7px 7px;cursor:pointer;font-size:16px;}
+.ui .replay {display:none;position:fixed;bottom:20px;right:282px;padding:8px 7px 7px 7px;cursor:pointer;font-size:16px;}
 
 .ui .credits {display:none;position:fixed;top:50%;left:50%;width:600px;margin:-140px 0 0 -300px;padding:27px 30px 8px 30px;text-align:center;font-size:16px;line-height:1.4em;}
 .ui .credits > div {margin:10px 10px 20px 10px;}
-.ui .credits-trigger {position:fixed;bottom:20px;right:20px;padding:12px 10px 10px 10px;cursor:pointer;}
+.ui .credits-trigger {position:fixed;bottom:20px;right:190px;padding:12px 10px 10px 10px;cursor:pointer;}
 .ui .credits .close {position:absolute;top:-26px;right:-26px;width:46px;height:44px;padding:22px 0 0 2px;text-align:center;font-size:30px;line-height:0;}
 .ui .credits .key {position: relative;top:-1px;display:inline-block;border:1px solid #fff;padding:5px 8px 0px;margin:0 4px;line-height:16px;}
 

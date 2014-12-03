@@ -30,23 +30,23 @@
             this._super();
 
             // Body
-            this.three_helper.create_box(0,0.02,0,0.06,0.01,0.06,0xffffff,this.object);
-            this.three_helper.create_box(0,0.035,0,0.06,0.02,0.06,0x82ad00,this.object);
+            this.three_helper.create_box( 0, 0.02, 0, 0.06, 0.01, 0.06, 0xffffff, this.object );
+            this.three_helper.create_box( 0, 0.035, 0, 0.06, 0.02, 0.06, 0x82ad00, this.object );
 
             // Legs
-            this.three_helper.create_box( 0.018,0.015,0,0.02,0.01,0.02,0x82ad00,this.object);
-            this.three_helper.create_box(-0.018,0.015,0,0.02,0.01,0.02,0x82ad00,this.object);
-            this.three_helper.create_box( 0.018,0.005,0,0.02,0.01,0.02,0x000000,this.object);
-            this.three_helper.create_box(-0.018,0.005,0,0.02,0.01,0.02,0x000000,this.object);
+            this.three_helper.create_box(  0.018, 0.015, 0, 0.02, 0.01, 0.02, 0x82ad00, this.object );
+            this.three_helper.create_box( -0.018, 0.015, 0, 0.02, 0.01, 0.02, 0x82ad00, this.object );
+            this.three_helper.create_box(  0.018, 0.005, 0, 0.02, 0.01, 0.02, 0x000000, this.object );
+            this.three_helper.create_box( -0.018, 0.005, 0, 0.02, 0.01, 0.02, 0x000000, this.object );
 
             // Head
-            this.three_helper.create_box(0,0.055,0,0.06,0.02,0.06,0xffc1b3,this.object);
-            this.three_helper.create_box(0,0.055,0.035,0.01,0.01,0.01,0xffc1b3,this.object);
+            this.three_helper.create_box( 0, 0.055, 0, 0.06, 0.02, 0.06, 0xffc1b3, this.object );
+            this.three_helper.create_box( 0, 0.055, 0.035, 0.01, 0.01, 0.01, 0xffc1b3, this.object );
 
             // Hat
-            this.three_helper.create_box(0,0.067,0,0.062,0.005,0.062,0xffffff,this.object);
-            this.three_helper.create_pyramid(0,0.089,0,0.038,0.04,0x82ad00,this.object);
-            this.three_helper.create_box(0,0.109,0,0.012,0.012,0.012,0xffffff,this.object);
+            this.three_helper.create_box( 0, 0.067, 0, 0.062, 0.005, 0.062, 0xffffff, this.object );
+            this.three_helper.create_pyramid( 0, 0.089, 0, 0.038, 0.04, 0x82ad00, this.object );
+            this.three_helper.create_box( 0, 0.109, 0, 0.012, 0.012, 0.012, 0xffffff, this.object );
 
             // Physics
             this.physic = Matter.Bodies.rectangle(

@@ -26,7 +26,7 @@
             this.torques = [];
 
             var count = this.options.count,
-                dummy = count * 10;
+                dummy = count * 20;
 
             while( count > 0 && dummy > 0 )
             {
@@ -42,7 +42,7 @@
                     var other_block = this.blocks[ i ],
                         distance    = Math.sqrt( Math.pow( Math.abs( other_block.options.x - x ), 2 ) + Math.pow( Math.abs( other_block.options.z - z ), 2 ) );
 
-                    if( distance < 0.6 )
+                    if( distance < 0.5 )
                         far_enough = false;
                 }
 

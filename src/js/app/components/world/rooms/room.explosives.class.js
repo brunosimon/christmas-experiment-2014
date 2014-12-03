@@ -52,7 +52,7 @@
             this.items  = [];
 
             var count = this.options.count,
-                dummy = count * 10;
+                dummy = count * 20;
 
             while( count > 0 && dummy > 0 )
             {

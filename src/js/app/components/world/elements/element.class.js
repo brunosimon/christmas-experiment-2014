@@ -2,7 +2,7 @@
 {
     'use strict';
 
-    APP.COMPONENTS.WORLD.Element = APP.CORE.Abstract.extend(
+    APP.COMPONENTS.WORLD.Element = APP.CORE.Event_Emitter.extend(
     {
         options :
         {

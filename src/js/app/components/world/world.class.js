@@ -12,8 +12,8 @@
             },
             elves :
             {
-                count    : 30,
-                distance : 0.5
+                count    : 40,
+                distance : 0.7
             }
         },
 
@@ -300,8 +300,11 @@
             // Quality
             if( quality === 'high' )
             {
-                // Lights
-                this.lights.set_multiplicator( 1.8 );
+                // // Lights
+                // this.lights.set_multiplicator( 1.8 );
+
+                // Snow
+                this.level.snow.uniforms.particleScale.value = 6;
 
                 // Shaders
                 this.renderer.options.shaders = true;
@@ -310,12 +313,17 @@
             // Low
             else
             {
-                // Lights
-                this.lights.set_multiplicator( 1.8 );
+                // // Lights
+                // this.lights.set_multiplicator( 1.8 );
+
+                // Snow
+                this.level.snow.uniforms.particleScale.value = 4;
 
                 // Shaders
                 this.renderer.options.shaders = false;
             }
+
+            this.quality = quality;
         },
 
         /**
@@ -352,6 +360,7 @@
 
             // Level
             this.level.init_new_level();
+            this.level.snow.uniforms.particleScale.value = this.quality === 'high' ? 6 : 4;
         }
     });
 })();

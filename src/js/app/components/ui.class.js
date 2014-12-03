@@ -404,6 +404,15 @@
                     this.show( this.$.loose );
                     this.show( this.$.play );
 
+                    var rand = Math.random(),
+                        text = rand < 0.2 ? 'You lose...' :
+                               rand < 0.4 ? 'AAAAaaahh' :
+                               rand < 0.6 ? 'Game over' :
+                               rand < 0.8 ? 'Maybe next time' :
+                                            'Not even close';
+
+                    this.$.loose.innerHTML = text;
+
                     this.$.play.innerHTML        = 'Try again';
                     this.$.play.style.width      = '240px';
                     this.$.play.style.marginLeft = '-120px';

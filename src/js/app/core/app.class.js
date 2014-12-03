@@ -83,6 +83,13 @@
                 that.world.set_quality( value );
             } );
 
+            this.world.santa.on( 'startrunning', function()
+            {
+                that.stats.time.start          = + ( new Date() );
+                that.stats.time.spent          = 0;
+                that.stats.time.spent_formated = '0s';
+            } );
+
             // Init Debug
             this.init_debug();
         },
@@ -125,7 +132,7 @@
             this.stats.elves.arrived = arrived;
             this.stats.elves.left    = this.stats.elves.total - this.stats.elves.dead - this.stats.elves.arrived;
 
-            this.stats.time.spent = + ( new Date() ) - this.stats.time.start;
+            this.stats.time.spent = this.world.santa.start_running ? + ( new Date() ) - this.stats.time.start : 0;
             this.stats.time.spent_formated = this.get_formated_time(this.stats.time.spent);
 
             // UI
@@ -151,8 +158,8 @@
 
             seconds -= 60 * minutes;
 
-            seconds = ('' + seconds).length < 2 ? '0' + seconds : seconds;
-            minutes = ('' + minutes).length < 2 ? '0' + minutes : minutes;
+            seconds = ( '' + seconds ).length < 2 ? '0' + seconds : seconds;
+            minutes = ( '' + minutes ).length < 2 ? '0' + minutes : minutes;
 
             return minutes + ':' + seconds;
         },
@@ -165,9 +172,6 @@
             // Stats
             this.stats.game.state = 'playing';
             this.stats.game.over  = false;
-            this.stats.time.start          = + ( new Date() );
-            this.stats.time.spent          = 0;
-            this.stats.time.spent_formated = '0s';
 
             // Ui
             this.ui.set_state( 'playing' );
