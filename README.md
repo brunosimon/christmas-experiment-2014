@@ -2,7 +2,7 @@
 ========
 
 Just a little game I made for the 2014 christmas experiments.
-Press 'T' in order to tweak some settings.
+\sPress 'T' in order to tweak some settings.
 
 [Play the game](http://christmasexperiments.com/experiments/5)
 
@@ -17,5 +17,5 @@ Press 'T' in order to tweak some settings.
 ### Credits
 
 Thanks to [Shane B. (Rush Coil)](http://rushcoil.bandcamp.com/) for the Music.
-Thanks to David Ronai for inviting me to participate.
+\sThanks to David Ronai for inviting me to participate.
 
