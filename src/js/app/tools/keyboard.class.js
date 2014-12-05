@@ -46,7 +46,7 @@
             } );
 
             // Down
-            window.onkeydown = function( e )
+            window.top.onkeydown = function( e )
             {
                 var character = String.fromCharCode(e.keyCode).toLowerCase();
                 that.shall_trigger.down = character;
@@ -56,7 +56,7 @@
             };
 
             // Up
-            window.onkeyup = function( e )
+            window.top.onkeyup = function( e )
             {
                 var character = String.fromCharCode(e.keyCode).toLowerCase();
                 that.shall_trigger.up = character;
